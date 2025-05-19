@@ -6,6 +6,8 @@ const cors = require("cors");
 const multer = require("multer");
 const fs = require("fs");
 const ffmpeg = require("fluent-ffmpeg");
+require("dotenv").config();
+
 
 const app = express();
 app.use(cors());
@@ -39,7 +41,9 @@ app.post('/api/convert', upload.single('audio'), (req, res) => {
     .save(outputPath)
     .on('end', () => {
       fs.unlinkSync(inputPath); // delete original uploaded file
-      res.json({ downloadUrl: `${process.env.API_URL}/${outputFilename}` });
+      const api = process.env.API_URL;
+      console.log(api);
+      res.json({ downloadUrl: api + '/' + outputFilename });
     })
     .on('error', (err) => {
       console.error(err);
@@ -55,7 +59,7 @@ app.use(express.static('converted'));
 // });
 
 // Server listen
-const PORT =  10000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
