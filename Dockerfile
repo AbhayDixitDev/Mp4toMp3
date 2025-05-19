@@ -17,7 +17,7 @@ RUN npm install
 COPY . .
 
 # Expose port (default Render uses 10000, 8080, etc. check your app)
-EXPOSE 5000
+EXPOSE 10000
 
 # Start your app
 CMD ["node", "index.js"]

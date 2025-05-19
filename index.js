@@ -39,7 +39,7 @@ app.post('/api/convert', upload.single('audio'), (req, res) => {
     .save(outputPath)
     .on('end', () => {
       fs.unlinkSync(inputPath); // delete original uploaded file
-      res.json({ downloadUrl: `http://localhost:5000/${outputFilename}` });
+      res.json({ downloadUrl: `http://localhost:10000/${outputFilename}` });
     })
     .on('error', (err) => {
       console.error(err);
@@ -55,7 +55,7 @@ app.use(express.static('converted'));
 // });
 
 // Server listen
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
